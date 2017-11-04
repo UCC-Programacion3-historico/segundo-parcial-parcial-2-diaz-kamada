@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include "email.h"
+#include "../clases/ListaMail.h"
 
 #ifndef MAILMANAGER_H
 #define MAILMANAGER_H
@@ -30,6 +31,5 @@ public:
 
     vector<email> getByQuery(string query);
 };
-
 
 #endif // MAILMANAGER_H
