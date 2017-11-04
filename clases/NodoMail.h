@@ -17,7 +17,7 @@ public:
         next=n;
     }
 
-    const email &getMail() const {
+    email getMail() {
         return mail;
     }
 

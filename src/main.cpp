@@ -1,6 +1,5 @@
 #include <iostream>
 #include "MailManager.h"
-
 using namespace std;
 
 int main(){
