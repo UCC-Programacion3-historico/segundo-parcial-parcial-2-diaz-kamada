@@ -63,6 +63,7 @@ bool ListaMail::esVacia() {
     return inicio == NULL;
 }
 
+
 /**
  *
  * @return
