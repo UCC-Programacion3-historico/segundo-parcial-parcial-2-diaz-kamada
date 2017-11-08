@@ -1,7 +1,7 @@
 #include <string>
 #include <vector>
 #include "email.h"
-#include "../clases/ListaMail.h"
+#include "../clases/ArbolMail.h"
 
 #ifndef MAILMANAGER_H
 #define MAILMANAGER_H
@@ -12,6 +12,8 @@ using namespace std;
 class MailManager {
 private:
     // Propiedades y metodos privados de la clase
+    ArbolBinario<string> arboldate;
+    ArbolBinario<string> arbolfrom;
 
 public:
     MailManager();
