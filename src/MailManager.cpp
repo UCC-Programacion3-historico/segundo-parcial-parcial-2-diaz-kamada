@@ -4,7 +4,6 @@
  * Constructor
  */
 MailManager::MailManager() {
-
 }
 
 
@@ -13,7 +12,8 @@ MailManager::MailManager() {
  * @param m mail a agregar
  */
 void MailManager::addMail(email m) {
-
+    AD.put(m);
+    AF.put(m);
 }
 
 
@@ -22,7 +22,8 @@ void MailManager::addMail(email m) {
  * @param id identificador del mail a borrar
  */
 void MailManager::deleteMail(unsigned long id) {
-
+    AD.remove(id);
+    AF.remove(id);
 }
 
 

@@ -1,7 +1,8 @@
 #include <string>
 #include <vector>
 #include "email.h"
-#include "../clases/ArbolMail.h"
+#include "../clases/ArbolDate.h"
+#include "../clases/ArbolFrom.h"
 
 #ifndef MAILMANAGER_H
 #define MAILMANAGER_H
@@ -11,27 +12,27 @@ using namespace std;
 
 class MailManager {
 private:
-    // Propiedades y metodos privados de la clase
-    ArbolBinario<string> arboldate;
-    ArbolBinario<string> arbolfrom;
+
+    ArbolDate AD;
+    ArbolFrom AF;
+    //tabla de hash
 
 public:
     MailManager();
 
-    // Métodos de uso
-    void addMail(email m);
+    void addMail(email m);                                          //agregar nodos a arboles
 
-    void deleteMail(unsigned long id);
+    void deleteMail(unsigned long id);                              //borrar por id
 
-    vector<email> getSortedByDate();
+    vector<email> getSortedByDate();                                //ordenar por date
 
-    vector<email> getSortedByDate(string desde, string hasta);
+    vector<email> getSortedByDate(string desde, string hasta);      //ordenar por date (filtrado)
 
-    vector<email> getSortedByFrom();
+    vector<email> getSortedByFrom();                                //ordenar por from
 
-    vector<email> getByFrom(string from);
+    vector<email> getByFrom(string from);                           //buscar por from
 
-    vector<email> getByQuery(string query);
+    vector<email> getByQuery(string query);                         //buscar por texto o asunto
 };
 
 #endif // MAILMANAGER_H

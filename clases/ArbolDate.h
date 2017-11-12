@@ -14,6 +14,8 @@ public:
 
     email search(email dato);
 
+    void remove(unsigned long dato);
+
     void remove(email dato);
 
     void preorder();
@@ -26,7 +28,7 @@ public:
 
     bool esVacio();
 
-    //void print();
+    void print();
 
 };
 
@@ -78,12 +80,27 @@ void ArbolDate::put(email dato) {
     }
 }
 
+/**
+ * Elimina un dato del árbol
+ * @param clave Clave para identificar el nodo a borrar
+ */
+void ArbolDate::remove(unsigned long dato) {
+    NodoArbolDate *aux;
+    if (raiz == NULL) {
+        throw 6;
+    } else {
+        aux = raiz;
+        raiz = raiz->remover(dato);
+        if (raiz != aux)
+            delete aux;
+    }
+}
 
 /**
  * Elimina un dato del árbol
  * @param clave Clave para identificar el nodo a borrar
  */
-void ArbolDate::remove(T dato) {
+void ArbolDate::remove(email dato) {
     NodoArbolDate *aux;
     if (raiz == NULL) {
         throw 6;
@@ -134,16 +151,14 @@ void ArbolDate::postorder() {
     }
 }
 
-/*
 /**
  * Muestra un árbol por consola
-
+*/
 void ArbolDate::print() {
 
     if (raiz != NULL) {
         raiz->print(false, "");
     }
 }
-*/
 
 #endif //MAILMANAGER_ARBOLDATE_H
