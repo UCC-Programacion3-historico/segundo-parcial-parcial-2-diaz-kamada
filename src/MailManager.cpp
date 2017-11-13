@@ -12,8 +12,10 @@ MailManager::MailManager() {
  * @param m mail a agregar
  */
 void MailManager::addMail(email m) {
-    AD.put(m);
-    AF.put(m);
+    Aid.put(m);
+    Adate.put(m);
+    Afrom.put(m);
+
 }
 
 
@@ -22,8 +24,10 @@ void MailManager::addMail(email m) {
  * @param id identificador del mail a borrar
  */
 void MailManager::deleteMail(unsigned long id) {
-    AD.remove(id);
-    AF.remove(id);
+    email aux = Aid.search(id);
+    Aid.remove(id);
+    Adate.remove(aux);
+    Afrom.remove(aux);
 }
 
 

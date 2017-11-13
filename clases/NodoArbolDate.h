@@ -299,14 +299,25 @@ NodoArbolDate *NodoArbolDate::remover(unsigned long d) {
 
 NodoArbolDate *NodoArbolDate::remover(email d) {
     NodoArbolDate *aux;
-    if (d.date == dato.date) {
+    if (d.date == dato.date && d.id == dato.id) {
         if (der != NULL) {
             der->put(izq);
             return der;
         }
         return izq;
 
-    } else {
+    }else if(d.date == dato.date){
+        if (der == NULL)
+            throw 3;
+        else {
+            aux = der;
+            der = der->remover(d);
+            if (der != aux)
+                delete aux;
+        }
+    }
+
+    else {
 
         int i;
         string aux1, aux2;
@@ -324,7 +335,7 @@ NodoArbolDate *NodoArbolDate::remover(email d) {
                 if (izq != aux)
                     delete aux;
             }
-        } else if (aux1 > aux2) {
+        } else if (aux1 > aux2 ) {
             if (der == NULL)
                 throw 3;
             else {

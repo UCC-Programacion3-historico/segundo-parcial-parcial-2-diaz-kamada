@@ -7,29 +7,31 @@
 
 using namespace std;
 
-
-template<class T>
 class NodoArbol {
 private:
 
     NodoArbol *izq, *der;
-    T dato;
+    email dato;
 
 public:
 
-    NodoArbol(T dato);
+    NodoArbol(email dato);
 
-    T getDato() const;
+    email getDato() const;
 
-    void setDato(T dato);
+    void setDato(email dato);
 
-    void put(T d);
+    void put(email d);
 
     void put(NodoArbol *nodo);
 
-    T search(T d);
+    email search(email d);
 
-    NodoArbol *remover(T param);
+    email search(unsigned long d);
+
+    NodoArbol *remover(email d);
+
+    NodoArbol *remover(unsigned long d);
 
     void preorder();
 
@@ -48,7 +50,7 @@ public:
             cout << " \\";
         }
         cout << "-- ";
-        cout << dato << endl;
+        cout << dato.id << endl;
         if (izq != NULL) {
             izq->print(false, identacion + (esDerecho ? "|    " : "     "));
         }
@@ -56,37 +58,35 @@ public:
 };
 
 
-template<class T>
-NodoArbol<T>::NodoArbol(T dato) : dato(dato) {
+NodoArbol::NodoArbol(email dato) : dato(dato) {
     izq = NULL;
     der = NULL;
 }
 
 
-template<class T>
-void NodoArbol<T>::put(T d) {
+void NodoArbol::put(email d) {
 
-    if (d == dato)
+    if (d.id == dato.id)
         throw 1;
-    else if (d < dato) { // va a la izq
+    else if (d.id < dato.id) { // va a la izq
         if (izq == NULL)
-            izq = new NodoArbol<T>(d);
+            izq = new NodoArbol(d);
         else
             izq->put(d);
     } else { // va a la der
         if (der == NULL)
-            der = new NodoArbol<T>(d);
+            der = new NodoArbol(d);
         else
             der->put(d);
     }
 }
 
-template<class T>
-void NodoArbol<T>::put(NodoArbol<T> *nodo) {
 
-    if (nodo->getDato() == dato)
+void NodoArbol::put(NodoArbol *nodo) {
+
+    if (nodo->getDato().id == dato.id)
         throw 1;
-    else if (nodo->getDato() < dato) { // va a la izq
+    else if (nodo->getDato().id < dato.id) { // va a la izq
         if (izq == NULL)
             izq = nodo;
         else
@@ -99,11 +99,11 @@ void NodoArbol<T>::put(NodoArbol<T> *nodo) {
     }
 }
 
-template<class T>
-T NodoArbol<T>::search(T d) {
-    if (d == dato) {
+
+email NodoArbol::search(email d) {
+    if (d.id == dato.id) {
         return dato;
-    } else if (d < dato) {
+    } else if (d.id < dato.id) {
         if (izq == NULL)
             throw 3;
         else
@@ -116,16 +116,31 @@ T NodoArbol<T>::search(T d) {
     }
 }
 
-template<class T>
-NodoArbol<T> *NodoArbol<T>::remover(T d) {
-    NodoArbol<T> *aux;
-    if (d == dato) {
+email NodoArbol::search(unsigned long d) {
+    if (d == dato.id) {
+        return dato;
+    } else if (d < dato.id) {
+        if (izq == NULL)
+            throw 3;
+        else
+            return izq->search(d);
+    } else {
+        if (der == NULL)
+            throw 3;
+        else
+            return der->search(d);
+    }
+}
+
+NodoArbol *NodoArbol::remover(email d) {
+    NodoArbol *aux;
+    if (d.id == dato.id) {
         if (der != NULL) {
             der->put(izq);
             return der;
         }
         return izq;
-    } else if (d < dato) {
+    } else if (d.id < dato.id) {
         if (izq == NULL)
             throw 3;
         else {
@@ -147,35 +162,64 @@ NodoArbol<T> *NodoArbol<T>::remover(T d) {
     return this;
 }
 
-template<class T>
-T NodoArbol<T>::getDato() const {
+NodoArbol *NodoArbol::remover(unsigned long d) {
+    NodoArbol *aux;
+    if (d == dato.id) {
+        if (der != NULL) {
+            der->put(izq);
+            return der;
+        }
+        return izq;
+    } else if (d < dato.id) {
+        if (izq == NULL)
+            throw 3;
+        else {
+            aux = izq;
+            izq = izq->remover(d);
+            if (izq != aux)
+                delete aux;
+        }
+    } else {
+        if (der == NULL)
+            throw 3;
+        else {
+            aux = der;
+            der = der->remover(d);
+            if (der != aux)
+                delete aux;
+        }
+    }
+    return this;
+}
+
+email NodoArbol::getDato() const {
     return dato;
 }
 
-template<class T>
-void NodoArbol<T>::setDato(T dato) {
+
+void NodoArbol::setDato(email dato) {
     NodoArbol::dato = dato;
 }
 
-template<class T>
-void NodoArbol<T>::preorder() {
-    cout << dato << ", ";
+
+void NodoArbol::preorder() {
+    dato.mostrar();
     if (izq != NULL) izq->preorder();
     if (der != NULL) der->preorder();
 }
 
-template<class T>
-void NodoArbol<T>::inorder() {
+
+void NodoArbol::inorder() {
     if (izq != NULL) izq->inorder();
-    cout << dato << ", ";
+    dato.mostrar();
     if (der != NULL) der->inorder();
 }
 
-template<class T>
-void NodoArbol<T>::postorder() {
+
+void NodoArbol::postorder() {
     if (izq != NULL) izq->postorder();
     if (der != NULL) der->postorder();
-    cout << dato << ", ";
+    dato.mostrar();
 }
 
 

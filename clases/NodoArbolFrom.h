@@ -12,6 +12,7 @@ private:
 
     NodoArbolFrom *izq, *der;
     email dato;
+    //string remitente;
 
 public:
 

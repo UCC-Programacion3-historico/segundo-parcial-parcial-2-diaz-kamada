@@ -3,19 +3,20 @@
 #include "email.h"
 #include "../clases/ArbolDate.h"
 #include "../clases/ArbolFrom.h"
+#include "../clases/ArbolMail.h"
 
 #ifndef MAILMANAGER_H
 #define MAILMANAGER_H
 
 using namespace std;
 
-
 class MailManager {
 private:
 
-    ArbolDate AD;
-    ArbolFrom AF;
-    //tabla de hash
+    ArbolMail Aid;
+    ArbolDate Adate;
+    ArbolFrom Afrom;
+    //Lista<email>* Tabla = new  Lista [3001];
 
 public:
     MailManager();

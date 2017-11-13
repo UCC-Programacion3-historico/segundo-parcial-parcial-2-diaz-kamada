@@ -4,18 +4,21 @@
 
 #include "NodoArbol.h"
 
-template<class T>
-class ArbolBinario {
+class ArbolMail {
 private:
-    NodoArbol<T> *raiz;
+    NodoArbol *raiz;
 public:
-    ArbolBinario();
+    ArbolMail();
 
-    void put(T dato);
+    void put(email dato);
 
-    T search(T dato);
+    email search(email dato);
 
-    void remove(T dato);
+    email search(unsigned long dato);
+
+    void remove(email dato);
+
+    void remove(unsigned long dato);
 
     void preorder();
 
@@ -23,7 +26,7 @@ public:
 
     void postorder();
 
-    ~ArbolBinario();
+    ~ArbolMail();
 
     bool esVacio();
 
@@ -37,8 +40,7 @@ public:
  * @tparam K Clave por la cual va a ordenar el árbol
  * @tparam T Valor guardado por el árbol
  */
-template<class T>
-ArbolBinario<T>::ArbolBinario() {
+ArbolMail::ArbolMail() {
     raiz = NULL;
 }
 
@@ -46,8 +48,7 @@ ArbolBinario<T>::ArbolBinario() {
 /**
  * Destructor del Arbol
  */
-template<class T>
-ArbolBinario<T>::~ArbolBinario() {
+ArbolMail::~ArbolMail() {
 
 }
 
@@ -58,8 +59,16 @@ ArbolBinario<T>::~ArbolBinario() {
  * @param clave Valor a buscar
  * @return el valor buscado
  */
-template<class T>
-T ArbolBinario<T>::search(T dato) {
+email ArbolMail::search(email dato) {
+
+    if (raiz == NULL) {
+        throw 3;
+    } else {
+        return raiz->search(dato);
+    }
+}
+
+email ArbolMail::search(unsigned long dato) {
 
     if (raiz == NULL) {
         throw 3;
@@ -74,10 +83,9 @@ T ArbolBinario<T>::search(T dato) {
  * @param clave Clave para agregar el dato
  * @param dato Dato a agregar
  */
-template<class T>
-void ArbolBinario<T>::put(T dato) {
+void ArbolMail::put(email dato) {
     if (raiz == NULL) {
-        raiz = new NodoArbol<T>(dato);
+        raiz = new NodoArbol(dato);
     } else {
         raiz->put(dato);
     }
@@ -88,9 +96,20 @@ void ArbolBinario<T>::put(T dato) {
  * Elimina un dato del árbol
  * @param clave Clave para identificar el nodo a borrar
  */
-template<class T>
-void ArbolBinario<T>::remove(T dato) {
-    NodoArbol<T> *aux;
+void ArbolMail::remove(email dato) {
+    NodoArbol *aux;
+    if (raiz == NULL) {
+        throw 6;
+    } else {
+        aux = raiz;
+        raiz = raiz->remover(dato);
+        if (raiz != aux)
+            delete aux;
+    }
+}
+
+void ArbolMail::remove(unsigned long dato) {
+    NodoArbol *aux;
     if (raiz == NULL) {
         throw 6;
     } else {
@@ -106,8 +125,7 @@ void ArbolBinario<T>::remove(T dato) {
  * Informa si un árbol esta vacío
  * @return
  */
-template<class T>
-bool ArbolBinario<T>::esVacio() {
+bool ArbolMail::esVacio() {
     return raiz == NULL;
 }
 
@@ -115,8 +133,7 @@ bool ArbolBinario<T>::esVacio() {
 /**
  * Recorre un árbol en preorden
  */
-template<class T>
-void ArbolBinario<T>::preorder() {
+void ArbolMail::preorder() {
     if (raiz != NULL) {
         raiz->preorder();
     }
@@ -126,8 +143,7 @@ void ArbolBinario<T>::preorder() {
 /**
  * Recorre un árbol en orden
  */
-template<class T>
-void ArbolBinario<T>::inorder() {
+void ArbolMail::inorder() {
     if (raiz != NULL) {
         raiz->inorder();
     }
@@ -137,8 +153,7 @@ void ArbolBinario<T>::inorder() {
 /**
  * Recorre un árbol en postorden
  */
-template<class T>
-void ArbolBinario<T>::postorder() {
+void ArbolMail::postorder() {
     if (raiz != NULL) {
         raiz->postorder();
     }
@@ -148,8 +163,7 @@ void ArbolBinario<T>::postorder() {
 /**
  * Muestra un árbol por consola
  */
-template<class T>
-void ArbolBinario<T>::print() {
+void ArbolMail::print() {
 
     if (raiz != NULL) {
         raiz->print(false, "");
