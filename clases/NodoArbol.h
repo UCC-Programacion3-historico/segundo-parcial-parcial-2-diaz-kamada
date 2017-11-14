@@ -1,9 +1,7 @@
+#include "../src/email.h"
+
 #ifndef MAILMANAGER_NODOARBOL_H
 #define MAILMANAGER_NODOARBOL_H
-
-#include <iostream>
-#include <string>
-#include "../src/email.h"
 
 using namespace std;
 
@@ -83,7 +81,8 @@ void NodoArbol::put(email d) {
 
 
 void NodoArbol::put(NodoArbol *nodo) {
-
+    if(nodo == NULL)
+        return;
     if (nodo->getDato().id == dato.id)
         throw 1;
     else if (nodo->getDato().id < dato.id) {    // va a la izq

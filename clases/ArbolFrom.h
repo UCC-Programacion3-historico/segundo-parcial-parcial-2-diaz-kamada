@@ -1,7 +1,7 @@
+#include "NodoArbolFrom.h"
+
 #ifndef MAILMANAGER_ARBOLFROM_H
 #define MAILMANAGER_ARBOLFROM_H
-
-#include "NodoArbolFrom.h"
 
 class ArbolFrom {
 private:
@@ -55,6 +55,7 @@ ArbolFrom::~ArbolFrom() {
  * @param clave Valor a buscar
  * @return el valor buscado
  */
+
 email ArbolFrom::search(email dato) {
 
     if (raiz == NULL) {

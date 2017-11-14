@@ -1,10 +1,9 @@
 #include <string>
 #include <iostream>
+using namespace std;
 
 #ifndef EMAIL_H
 #define EMAIL_H
-
-using namespace std;
 
 /**
  * Clase con los datos del mail
@@ -12,6 +11,7 @@ using namespace std;
 class email {
 public:
     email();
+    email(unsigned long, string, string, string, string, string);
     email(const email &em);
     unsigned long id;
     string from;
@@ -29,6 +29,15 @@ email::email() {
     date="";
     subject="";
     content="";
+}
+
+email::email(unsigned long x, string a, string b, string c, string d, string e) {
+    id=x;
+    from=a;
+    to=b;
+    date=c;
+    subject=d;
+    content=e;
 }
 
 void email::mostrar() {

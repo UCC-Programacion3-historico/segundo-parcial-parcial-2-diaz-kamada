@@ -1,8 +1,7 @@
+#include "NodoArbol.h"
+
 #ifndef MAILMANAGER_ARBOLMAIL_H
 #define MAILMANAGER_ARBOLMAIL_H
-
-
-#include "NodoArbol.h"
 
 class ArbolMail {
 private:

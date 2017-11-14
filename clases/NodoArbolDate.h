@@ -1,9 +1,7 @@
+#include "../src/email.h"
+
 #ifndef MAILMANAGER_NODOARBOLDATE_H
 #define MAILMANAGER_NODOARBOLDATE_H
-
-#include <iostream>
-#include <string>
-#include "../src/email.h"
 
 using namespace std;
 
@@ -77,8 +75,8 @@ void NodoArbolDate::put(email d) {
         string aux1, aux2;
 
         for (i = 0; i < 4; i++) {                   //aux1 y aux2 son iguales a los años
-            aux1[i] = d.date[i];
-            aux2[i] = dato.date[i];
+            aux1 += d.date[i];
+            aux2 += dato.date[i];
         }
         if (aux1 < aux2) {
             if (izq == NULL)
@@ -96,8 +94,8 @@ void NodoArbolDate::put(email d) {
             aux1 = "";
             aux2 = "";
             for (i = 5; i < 7; i++) {               //aux1 y aux2 son iguales a los meses
-                aux1[i] = d.date[i];
-                aux2[i] = dato.date[i];
+                aux1 += d.date[i];
+                aux2 += dato.date[i];
             }
             if (aux1 < aux2) {
                 if (izq == NULL)
@@ -115,8 +113,8 @@ void NodoArbolDate::put(email d) {
                 aux1 = "";
                 aux2 = "";
                 for (i = 8; i < 10; i++) {          //aux1 y aux2 son iguales a los dias
-                    aux1[i] = d.date[i];
-                    aux2[i] = dato.date[i];
+                    aux1 += d.date[i];
+                    aux2 += dato.date[i];
                 }
                 if (aux1 < aux2) {
                     if (izq == NULL)
@@ -135,6 +133,9 @@ void NodoArbolDate::put(email d) {
 }
 
 void NodoArbolDate::put(NodoArbolDate *nodo) {
+    if(nodo == NULL)
+        return;
+
     if (nodo->getDato().date == dato.date) {            //si las fechas son iguales lo mando a la derecha
         if (der == NULL)
             der = nodo;
@@ -148,8 +149,8 @@ void NodoArbolDate::put(NodoArbolDate *nodo) {
         string aux1, aux2;
 
         for (i = 0; i < 4; i++) {                       //aux1 y aux2 son iguales a los años
-            aux1[i] = nodo->getDato().date[i];
-            aux2[i] = dato.date[i];
+            aux1 += nodo->getDato().date[i];
+            aux2 += dato.date[i];
         }
         if (aux1 < aux2) {
             if (izq == NULL)
@@ -167,8 +168,8 @@ void NodoArbolDate::put(NodoArbolDate *nodo) {
             aux1 = "";
             aux2 = "";
             for (i = 5; i < 7; i++) {                   //aux1 y aux2 son iguales a los meses
-                aux1[i] = nodo->getDato().date[i];
-                aux2[i] = dato.date[i];
+                aux1 += nodo->getDato().date[i];
+                aux2 += dato.date[i];
             }
             if (aux1 < aux2) {
                 if (izq == NULL)
@@ -186,8 +187,8 @@ void NodoArbolDate::put(NodoArbolDate *nodo) {
                 aux1 = "";
                 aux2 = "";
                 for (i = 8; i < 10; i++) {              //aux1 y aux2 son iguales a los dias
-                    aux1[i] = nodo->getDato().date[i];
-                    aux2[i] = dato.date[i];
+                    aux1 += nodo->getDato().date[i];
+                    aux2 += dato.date[i];
                 }
                 if (aux1 < aux2) {
                     if (izq == NULL)
@@ -205,17 +206,22 @@ void NodoArbolDate::put(NodoArbolDate *nodo) {
     }
 }
 
-email NodoArbolDate::search(email d) { //cambiar a busqueda por id IMPORTANTE
-    if (d.date == dato.date) {
+email NodoArbolDate::search(email d) { //cambiar a busqueda por id IMPORTANTE PARA CUANDO SE IMPLEMENTE LA BUSQUEDA
+    if (d.date == dato.date && d.id == dato.id)
         return dato;
+    if(d.date == dato.date){
+        if (der == NULL)                              //si son iguales sigo buscando por derecha
+            throw 3;
+        else
+            return der->search(d);
     } else {
 
         int i;
         string aux1, aux2;
 
         for (i = 0; i < 4; i++) {                      //aux1 y aux2 son iguales a los años
-            aux1[i] = d.date[i];
-            aux2[i] = dato.date[i];
+            aux1 += d.date[i];
+            aux2 += dato.date[i];
         }
         if (aux1 < aux2) {
             if (izq == NULL)
@@ -231,8 +237,8 @@ email NodoArbolDate::search(email d) { //cambiar a busqueda por id IMPORTANTE
             aux1 = "";
             aux2 = "";
             for (i = 5; i < 7; i++) {                 //aux1 y aux2 son iguales a los meses
-                aux1[i] = d.date[i];
-                aux2[i] = dato.date[i];
+                aux1 += d.date[i];
+                aux2 += dato.date[i];
             }
             if (aux1 < aux2) {
                 if (izq == NULL)
@@ -248,8 +254,8 @@ email NodoArbolDate::search(email d) { //cambiar a busqueda por id IMPORTANTE
                 aux1 = "";
                 aux2 = "";
                 for (i = 8; i < 10; i++) {             //aux1 y aux2 son iguales a los dias
-                    aux1[i] = d.date[i];
-                    aux2[i] = dato.date[i];
+                    aux1 += d.date[i];
+                    aux2 += dato.date[i];
                 }
                 if (aux1 < aux2) {
                     if (izq == NULL)
@@ -323,8 +329,8 @@ NodoArbolDate *NodoArbolDate::remover(email d) {
         string aux1, aux2;
 
         for (i = 0; i < 4; i++) {                      //aux1 y aux2 son iguales a los años
-            aux1[i] = d.date[i];
-            aux2[i] = dato.date[i];
+            aux1 += d.date[i];
+            aux2 += dato.date[i];
         }
         if (aux1 < aux2) {
             if (izq == NULL)
@@ -350,8 +356,8 @@ NodoArbolDate *NodoArbolDate::remover(email d) {
             aux1 = "";
             aux2 = "";
             for (i = 5; i < 7; i++) {                   //aux1 y aux2 son iguales a los meses
-                aux1[i] = d.date[i];
-                aux2[i] = dato.date[i];
+                aux1 += d.date[i];
+                aux2 += dato.date[i];
             }
             if (aux1 < aux2) {
                 if (izq == NULL)
@@ -377,8 +383,8 @@ NodoArbolDate *NodoArbolDate::remover(email d) {
                 aux1 = "";
                 aux2 = "";
                 for (i = 8; i < 10; i++) {                 //aux1 y aux2 son iguales a los dias
-                    aux1[i] = d.date[i];
-                    aux2[i] = dato.date[i];
+                    aux1 += d.date[i];
+                    aux2 += dato.date[i];
                 }
                 if (aux1 < aux2) {
                     if (izq == NULL)

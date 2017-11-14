@@ -1,8 +1,7 @@
-#ifndef MAILMANAGER_ARBOLDATE_H
-#define MAILMANAGER_ARBOLDATE_H
-
 #include "NodoArbolDate.h"
 
+#ifndef MAILMANAGER_ARBOLDATE_H
+#define MAILMANAGER_ARBOLDATE_H
 
 class ArbolDate {
 private:
