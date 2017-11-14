@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "../src/email.h"
+#include "Lista.h"
 
 using namespace std;
 
@@ -11,16 +12,14 @@ class NodoArbolFrom {
 private:
 
     NodoArbolFrom *izq, *der;
-    email dato;
-    //string remitente;
+    Lista<email> dato;          //lista de emails del mismo remitente
+    string remitente;
 
 public:
 
     NodoArbolFrom(email dato);
 
-    email getDato() const;
-
-    void setDato(email dato);
+    Lista<email> getDato() const;
 
     void put(email d);
 
@@ -28,7 +27,9 @@ public:
 
     email search(email d);
 
-    NodoArbolFrom *remover(unsigned long d);
+    //NodoArbolFrom *remover(unsigned long d);
+
+    NodoArbolFrom *remover(email d);
 
     void preorder();
 
@@ -47,7 +48,7 @@ public:
             cout << " \\";
         }
         cout << "-- ";
-        cout << dato.id << endl;
+        cout << remitente << endl;
         if (izq != NULL) {
             izq->print(false, identacion + (esDerecho ? "|    " : "     "));
         }
@@ -56,21 +57,23 @@ public:
 };
 
 
-NodoArbolFrom::NodoArbolFrom(email dato) : dato(dato) {
+NodoArbolFrom::NodoArbolFrom(email d) {
     izq = NULL;
     der = NULL;
+    remitente = d.from;                     //el remitente es igual al remitente del mail correspondiente al nodo
+    dato.insertarUltimo(d);                 //se agrega a la lista el mail correspondiente al nodo
 }
 
 void NodoArbolFrom::put(email d) {
 
-    if (d.from == dato.from)
-        throw 1;
-    else if (d.from < dato.from) { // va a la izq
+    if (d.from == remitente)
+        dato.insertarUltimo(d);             //se agrega el mail a la lista del remitente
+    else if (d.from < remitente) {          // va a la izq
         if (izq == NULL)
             izq = new NodoArbolFrom(d);
         else
             izq->put(d);
-    } else { // va a la der
+    } else {                                // va a la der
         if (der == NULL)
             der = new NodoArbolFrom(d);
         else
@@ -80,14 +83,15 @@ void NodoArbolFrom::put(email d) {
 
 void NodoArbolFrom::put(NodoArbolFrom *nodo) {
 
-    if (nodo->getDato().from == dato.from)
-        throw 1;
-    else if (nodo->getDato().from < dato.from) { // va a la izq
+    if (nodo->remitente == remitente)
+        throw 3;
+        //dato.insertarUltimo(nodo->getDato());       //se agrega el mail, correspondiente al ptr a nodo, a la lista
+    else if (nodo->remitente < remitente) {    // va a la izq
         if (izq == NULL)
             izq = nodo;
         else
             izq->put(nodo);
-    } else { // va a la der
+    } else {                                        // va a la der
         if (der == NULL)
             der = nodo;
         else
@@ -96,9 +100,9 @@ void NodoArbolFrom::put(NodoArbolFrom *nodo) {
 }
 
 email NodoArbolFrom::search(email d) {
-    if (d.from == dato.from) {
-        return dato;
-    } else if (d.from < dato.from) {
+    if (d.from == remitente) {
+        return dato.buscar(d);              //REVISARRRRRRRRRRRRRRRRRRRRR
+    } else if (d.from < remitente) {
         if (izq == NULL)
             throw 3;
         else
@@ -110,7 +114,7 @@ email NodoArbolFrom::search(email d) {
             return der->search(d);
     }
 }
-
+/*
 NodoArbolFrom *NodoArbolFrom::remover(unsigned long d) {
     NodoArbolFrom *aux;
     if (d == dato.id) {
@@ -139,32 +143,76 @@ NodoArbolFrom *NodoArbolFrom::remover(unsigned long d) {
         }
     }
     return this;
+
+
+
+
+
+}
+*/
+
+//REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR
+
+NodoArbolFrom *NodoArbolFrom::remover(email d) {
+    NodoArbolFrom *aux;
+    if (d.from == remitente) {
+        if(dato.getInicio() == NULL)                    //si no hay mails q tire error
+            throw 3;
+        dato.remover(dato.buscarpos(dato.buscar(d)));   //buscar(d) busca el email en la lista, buscarpos(email) busca la
+                                                        //pos del email en la lista, y remover remueve el elemento de esa pos
+
+        if(dato.getInicio() == NULL){                   //la logica aca es, si ya no hay mails, borrar el nodo
+            if (der != NULL) {
+                der->put(izq);
+                return der;
+            }
+            return izq;
+        }
+
+    } else if (d.from < remitente) {
+        if (izq == NULL)
+            throw 3;
+        else {
+            aux = izq;
+            izq = izq->remover(d);
+            if (izq != aux)
+                delete aux;
+        }
+    } else {
+        if (der == NULL)
+            throw 3;
+        else {
+            aux = der;
+            der = der->remover(d);
+            if (der != aux)
+                delete aux;
+        }
+    }
+    return this;
 }
 
-email NodoArbolFrom::getDato() const {
+Lista<email> NodoArbolFrom::getDato() const {
     return dato;
 }
 
-void NodoArbolFrom::setDato(email dato) {
-    NodoArbolFrom::dato = dato;
-}
+using std::cout;
 
 void NodoArbolFrom::preorder() {
-    dato.mostrar();
+    cout << remitente << endl;
     if (izq != NULL) izq->preorder();
     if (der != NULL) der->preorder();
 }
 
 void NodoArbolFrom::inorder() {
     if (izq != NULL) izq->inorder();
-    dato.mostrar();
+    cout << remitente << endl;
     if (der != NULL) der->inorder();
 }
 
 void NodoArbolFrom::postorder() {
     if (izq != NULL) izq->postorder();
     if (der != NULL) der->postorder();
-    dato.mostrar();
+    cout << remitente << endl;
 }
 
 #endif //MAILMANAGER_NODOARBOLFROM_H

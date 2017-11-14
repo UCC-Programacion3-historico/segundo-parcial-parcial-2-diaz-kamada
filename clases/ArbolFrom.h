@@ -13,7 +13,7 @@ public:
 
     email search(email dato);
 
-    void remove(unsigned long dato);
+    void remove(email dato);
 
     void preorder();
 
@@ -83,7 +83,7 @@ void ArbolFrom::put(email dato) {
  * Elimina un dato del árbol
  * @param clave Clave para identificar el nodo a borrar
  */
-void ArbolFrom::remove(unsigned long dato) {
+void ArbolFrom::remove(email dato) {        //REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR
     NodoArbolFrom *aux;
     if (raiz == NULL) {
         throw 6;

@@ -67,13 +67,13 @@ NodoArbol::NodoArbol(email dato) : dato(dato) {
 void NodoArbol::put(email d) {
 
     if (d.id == dato.id)
-        throw 1;
-    else if (d.id < dato.id) { // va a la izq
+        throw 1;                    //no pueden haber 2 mails con el mismo id
+    else if (d.id < dato.id) {      // va a la izq
         if (izq == NULL)
             izq = new NodoArbol(d);
         else
             izq->put(d);
-    } else { // va a la der
+    } else {                        // va a la der
         if (der == NULL)
             der = new NodoArbol(d);
         else
@@ -86,12 +86,12 @@ void NodoArbol::put(NodoArbol *nodo) {
 
     if (nodo->getDato().id == dato.id)
         throw 1;
-    else if (nodo->getDato().id < dato.id) { // va a la izq
+    else if (nodo->getDato().id < dato.id) {    // va a la izq
         if (izq == NULL)
             izq = nodo;
         else
             izq->put(nodo);
-    } else { // va a la der
+    } else {                                    // va a la der
         if (der == NULL)
             der = nodo;
         else

@@ -29,7 +29,7 @@ public:
 
     NodoArbolDate *remover(unsigned long d);
 
-    NodoArbolDate *remover(email param);
+    NodoArbolDate *remover(email d);
 
     void preorder();
 
