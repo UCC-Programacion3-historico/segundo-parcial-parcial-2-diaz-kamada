@@ -11,21 +11,11 @@ public:
 
     void put(email dato);
 
-    email search(email dato);
-
     void search(string &s, vector<email> &v);
 
     void remove(email dato);
 
-    void preorder();
-
     void inorder(vector<email> &v);
-
-    void postorder();
-
-    ~ArbolFrom();
-
-    bool esVacio();
 
     void print();
 
@@ -34,39 +24,16 @@ public:
 
 /**
  * Constructor del Arbol
- * @tparam K Clave por la cual va a ordenar el árbol
- * @tparam T Valor guardado por el árbol
  */
-
 ArbolFrom::ArbolFrom() {
     raiz = NULL;
 }
 
-
 /**
- * Destructor del Arbol
+ * Busca y agrega a un vector todos los emails del mismo remitente
+ * @param s remitente
+ * @param v vector
  */
-ArbolFrom::~ArbolFrom() {
-
-}
-
-
-/**
- * Busca un dato en el árbol. Si no esta el dato en el árbol
- * tira una excepción
- * @param clave Valor a buscar
- * @return el valor buscado
- */
-
-email ArbolFrom::search(email dato) {
-
-    if (raiz == NULL) {
-        throw 3;
-    } else {
-        return raiz->search(dato);
-    }
-}
-
 void ArbolFrom::search(string &s, vector<email> &v) {
     if (raiz == NULL) {
         return;
@@ -77,9 +44,8 @@ void ArbolFrom::search(string &s, vector<email> &v) {
 
 
 /**
- * Agrega un dato al árbol
- * @param clave Clave para agregar el dato
- * @param dato Dato a agregar
+ * Agrega un email al árbol
+ * @param dato email a agregar
  */
 void ArbolFrom::put(email dato) {
     if (raiz == NULL) {
@@ -91,10 +57,10 @@ void ArbolFrom::put(email dato) {
 
 
 /**
- * Elimina un dato del árbol
- * @param clave Clave para identificar el nodo a borrar
+ * Elimina un email del árbol
+ * @param dato email a borrar
  */
-void ArbolFrom::remove(email dato) {        //REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR
+void ArbolFrom::remove(email dato) {
     NodoArbolFrom *aux;
     if (raiz == NULL) {
         throw 6;
@@ -106,28 +72,9 @@ void ArbolFrom::remove(email dato) {        //REVISAR REVISAR REVISAR REVISAR RE
     }
 }
 
-
 /**
- * Informa si un árbol esta vacío
- * @return
- */
-bool ArbolFrom::esVacio() {
-    return raiz == NULL;
-}
-
-
-/**
- * Recorre un árbol en preorden
- */
-void ArbolFrom::preorder() {
-    if (raiz != NULL) {
-        raiz->preorder();
-    }
-}
-
-
-/**
- * Recorre un árbol en orden
+ * Recorre el arbol en orden y llena un vector a medida que lo hace
+ * de modo que el vector queda ordenado por los remitentes
  */
 void ArbolFrom::inorder(vector<email> &v) {
     if (raiz != NULL) {
@@ -135,16 +82,9 @@ void ArbolFrom::inorder(vector<email> &v) {
     }
 }
 
-
 /**
- * Recorre un árbol en postorden
+ * Muestra un arbol por consola
  */
-void ArbolFrom::postorder() {
-    if (raiz != NULL) {
-        raiz->postorder();
-    }
-}
-
 void ArbolFrom::print() {
 
     if (raiz != NULL) {

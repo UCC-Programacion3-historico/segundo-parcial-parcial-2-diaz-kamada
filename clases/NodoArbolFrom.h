@@ -21,19 +21,13 @@ public:
 
     void put(NodoArbolFrom *nodo);
 
-    email search(email d);
-
     void search(string &s, vector<email> &v);
 
     NodoArbolFrom *remover(unsigned long d);
 
     NodoArbolFrom *remover(email d);
 
-    void preorder();
-
     void inorder(vector<email> &v);
-
-    void postorder();
 
     void print(bool esDerecho, string identacion) {
         if (der != NULL) {
@@ -54,12 +48,19 @@ public:
 
 };
 
-
+/**
+ * Constructor de NodoArbolFrom
+ * @param dato email
+ */
 NodoArbolFrom::NodoArbolFrom(email dato) : dato(dato) {
     izq = NULL;
     der = NULL;
 }
 
+/**
+ * Iserta un nuevo nodo con el email pasado como parametro
+ * @param d email
+ */
 void NodoArbolFrom::put(email d) {
 
     if (d.from == dato.from){
@@ -81,6 +82,10 @@ void NodoArbolFrom::put(email d) {
     }
 }
 
+/**
+ * Agrega un puntero a un nodo como nodo
+ * @param *nodo
+ */
 void NodoArbolFrom::put(NodoArbolFrom *nodo) {
     if (nodo == NULL)
         return;
@@ -103,34 +108,18 @@ void NodoArbolFrom::put(NodoArbolFrom *nodo) {
     }
 }
 
-email NodoArbolFrom::search(email d) { //CAMBIAR A BUSQUEDA POR ID PARA AGILIZAR LA BUSQUEDA
-    if (d.from == dato.from && d.id == dato.id)
-        return dato;
-    if(d.from == dato.from){
-        if (der == NULL)
-            throw 3;
-        else
-            return der->search(d);
-    } else if (d.from < dato.from) {
-        if (izq == NULL)
-            throw 3;
-        else
-            return izq->search(d);
-    } else {
-        if (der == NULL)
-            throw 3;
-        else
-            return der->search(d);
-    }
-}
-
+/**
+ * Busca y agrega a un vector todos los mails correspondientes a un remitente
+ * @param s remitente
+ * @param v vector
+ */
 void NodoArbolFrom::search(string &s, vector<email> &v) {
     if(s == dato.from){
-        v.insert(v.end(),dato);             // si el remitente es el buscado, agregar al vector
+        v.insert(v.end(),dato);
         if(der == NULL)
             return;
         else
-            der->search(s,v);           // como mandamos los iguales a la derecha, buscamos por derecha hasta q der=NULL
+            der->search(s,v);
     }
     else{
         if(s < dato.from)
@@ -147,7 +136,12 @@ void NodoArbolFrom::search(string &s, vector<email> &v) {
     }
 }
 
-
+/**
+ * Funcion que remueve un email y devuelve un puntero a un nodo, que corresponde al nodo que mantiene
+ * el balance del arbol y reemplaza el nodo a remover
+ * @param d
+ * @return *nodo
+ */
 NodoArbolFrom *NodoArbolFrom::remover(unsigned long d) {
     NodoArbolFrom *aux;
     if (d == dato.id) {
@@ -178,9 +172,12 @@ NodoArbolFrom *NodoArbolFrom::remover(unsigned long d) {
     return this;
 }
 
-
-//REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR
-
+/**
+ * Funcion que remueve un email y devuelve un puntero a un nodo, que corresponde al nodo que mantiene
+ * el balance del arbol y reemplaza el nodo a remover
+ * @param d email
+ * @return *nodo
+ */
 NodoArbolFrom *NodoArbolFrom::remover(email d) {
     NodoArbolFrom *aux;
     if (d.from == dato.from && d.id == dato.id) {
@@ -223,28 +220,22 @@ NodoArbolFrom *NodoArbolFrom::remover(email d) {
     return this;
 }
 
+/**
+ * devuelve el email correspondiente al nodo
+ * @return email
+ */
 email NodoArbolFrom::getDato() const {
     return dato;
 }
 
-using std::cout;
-
-void NodoArbolFrom::preorder() {
-    cout << dato.from << endl;
-    if (izq != NULL) izq->preorder();
-    if (der != NULL) der->preorder();
-}
-
+/**
+ * Recorre el arbol en orden llenando un vector para que queden los mails ordenados por remitente en el vector
+ * @param v vector
+ */
 void NodoArbolFrom::inorder(vector<email> &v) {
     if (izq != NULL) izq->inorder(v);
     v.insert(v.end(),dato);
     if (der != NULL) der->inorder(v);
-}
-
-void NodoArbolFrom::postorder() {
-    if (izq != NULL) izq->postorder();
-    if (der != NULL) der->postorder();
-    cout << dato.from << endl;
 }
 
 #endif //MAILMANAGER_NODOARBOLFROM_H

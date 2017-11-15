@@ -14,7 +14,6 @@ private:
     ArbolMail Aid;
     ArbolDate Adate;
     ArbolFrom Afrom;
-    //Lista<email>* Tabla = new  Lista [3001];
 
 public:
     MailManager();
@@ -52,7 +51,7 @@ void MailManager::printid() {Aid.print();}
 MailManager::MailManager() {
 }
 
-using std::cout;
+
 /**
  * Agrega un mail al gestor
  * @param m mail a agregar
@@ -133,6 +132,8 @@ vector<email> MailManager::getByFrom(string from) {
  */
 vector<email> MailManager::getByQuery(string query) {
     vector<email> ret;
+    Aid.searchsubject(query,ret);
+    Aid.searchcontent(query,ret);
     return ret;
 }
 

@@ -11,23 +11,13 @@ public:
 
     void put(email dato);
 
-    email search(email dato);
-
     email search(unsigned long dato);
 
-    void remove(email dato);
+    void searchsubject(string &s, vector<email> &v);
+
+    void searchcontent(string &s, vector<email> &v);
 
     void remove(unsigned long dato);
-
-    void preorder();
-
-    void inorder();
-
-    void postorder();
-
-    ~ArbolMail();
-
-    bool esVacio();
 
     void print();
 
@@ -36,51 +26,49 @@ public:
 
 /**
  * Constructor del Arbol
- * @tparam K Clave por la cual va a ordenar el árbol
- * @tparam T Valor guardado por el árbol
  */
 ArbolMail::ArbolMail() {
     raiz = NULL;
 }
 
-
 /**
- * Destructor del Arbol
+ * Busca un email por su id en el arbol y lo devuelve
+ * @param dato
+ * @return email buscado
  */
-ArbolMail::~ArbolMail() {
-
-}
-
-
-/**
- * Busca un dato en el árbol. Si no esta el dato en el árbol
- * tira una excepción
- * @param clave Valor a buscar
- * @return el valor buscado
- */
-email ArbolMail::search(email dato) {
-
-    if (raiz == NULL) {
-        throw 3;
-    } else {
-        return raiz->search(dato);
-    }
-}
-
 email ArbolMail::search(unsigned long dato) {
-
     if (raiz == NULL) {
         throw 3;
     } else {
         return raiz->search(dato);
     }
 }
-
+/**
+ * Busca en los asuntos de emails del arbol la palabra s pasada como parametro y agrega el email al vector
+ * si se encuentra la palabra en el mismo
+ * @param s
+ * @param v
+ */
+void ArbolMail::searchsubject(string &s, vector<email> &v) {
+    if (raiz != NULL) {
+        raiz->searchsubject(s,v);
+    }
+}
+/**
+ * Busca en los contenidos de los emails del arbol la palabra s pasada como parametro y agrega el email al vector
+ * si se encuentra la palabra en el mismo
+ * @param s
+ * @param v
+ */
+void ArbolMail::searchcontent(string &s, vector<email> &v) {
+    if (raiz != NULL) {
+        raiz->searchcontent(s,v);
+    }
+}
 
 /**
- * Agrega un dato al árbol
- * @param clave Clave para agregar el dato
- * @param dato Dato a agregar
+ * Agrega un email al árbol
+ * @param dato email
  */
 void ArbolMail::put(email dato) {
     if (raiz == NULL) {
@@ -90,23 +78,10 @@ void ArbolMail::put(email dato) {
     }
 }
 
-
 /**
- * Elimina un dato del árbol
- * @param clave Clave para identificar el nodo a borrar
+ * Elimina un email del arbol a partir de su id
+ * @param dato
  */
-void ArbolMail::remove(email dato) {
-    NodoArbol *aux;
-    if (raiz == NULL) {
-        throw 6;
-    } else {
-        aux = raiz;
-        raiz = raiz->remover(dato);
-        if (raiz != aux)
-            delete aux;
-    }
-}
-
 void ArbolMail::remove(unsigned long dato) {
     NodoArbol *aux;
     if (raiz == NULL) {
@@ -118,46 +93,6 @@ void ArbolMail::remove(unsigned long dato) {
             delete aux;
     }
 }
-
-
-/**
- * Informa si un árbol esta vacío
- * @return
- */
-bool ArbolMail::esVacio() {
-    return raiz == NULL;
-}
-
-
-/**
- * Recorre un árbol en preorden
- */
-void ArbolMail::preorder() {
-    if (raiz != NULL) {
-        raiz->preorder();
-    }
-}
-
-
-/**
- * Recorre un árbol en orden
- */
-void ArbolMail::inorder() {
-    if (raiz != NULL) {
-        raiz->inorder();
-    }
-}
-
-
-/**
- * Recorre un árbol en postorden
- */
-void ArbolMail::postorder() {
-    if (raiz != NULL) {
-        raiz->postorder();
-    }
-}
-
 
 /**
  * Muestra un árbol por consola

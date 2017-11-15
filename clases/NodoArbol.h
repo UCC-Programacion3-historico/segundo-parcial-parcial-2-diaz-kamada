@@ -17,25 +17,19 @@ public:
 
     email getDato() const;
 
-    void setDato(email dato);
-
     void put(email d);
 
     void put(NodoArbol *nodo);
 
-    email search(email d);
-
     email search(unsigned long d);
+
+    void searchsubject(string &s,vector<email> &v);
+
+    void searchcontent(string &s,vector<email> &v);
 
     NodoArbol *remover(email d);
 
     NodoArbol *remover(unsigned long d);
-
-    void preorder();
-
-    void inorder();
-
-    void postorder();
 
     void print(bool esDerecho, string identacion) {
         if (der != NULL) {
@@ -55,13 +49,19 @@ public:
     }
 };
 
-
+/**
+ * Constructor de la clase NodoArbol
+ * @param dato
+ */
 NodoArbol::NodoArbol(email dato) : dato(dato) {
     izq = NULL;
     der = NULL;
 }
 
-
+/**
+ * Agrega un nodo con el email pasado como parametro
+ * @param d
+ */
 void NodoArbol::put(email d) {
 
     if (d.id == dato.id)
@@ -79,7 +79,10 @@ void NodoArbol::put(email d) {
     }
 }
 
-
+/**
+ * Agrega un puntero a un nodo como nodo
+ * @param nodo
+ */
 void NodoArbol::put(NodoArbol *nodo) {
     if(nodo == NULL)
         return;
@@ -98,23 +101,11 @@ void NodoArbol::put(NodoArbol *nodo) {
     }
 }
 
-
-email NodoArbol::search(email d) {
-    if (d.id == dato.id) {
-        return dato;
-    } else if (d.id < dato.id) {
-        if (izq == NULL)
-            throw 3;
-        else
-            return izq->search(d);
-    } else {
-        if (der == NULL)
-            throw 3;
-        else
-            return der->search(d);
-    }
-}
-
+/**
+ * Busca un email en el arbol por su id y lo devuelve
+ * @param d
+ * @return email
+ */
 email NodoArbol::search(unsigned long d) {
     if (d == dato.id) {
         return dato;
@@ -131,6 +122,87 @@ email NodoArbol::search(unsigned long d) {
     }
 }
 
+/**
+ * Funcion que toma una palabra como parametro y la agrega al final del vector
+ * si la palabra esta en el asunto del email
+ * @param s
+ * @param v
+ */
+void NodoArbol::searchsubject(string &s, vector<email> &v) {
+    if (izq != NULL) izq->searchsubject(s,v);
+
+    if(dato.subject == s)
+        v.insert(v.end(),dato);
+    else{
+        int i,j,h,f;
+        int l = dato.subject.length();
+        int c = s.length();
+
+        for(h=0; h<l; h++){
+            f=0;
+            if(s[0] == dato.subject[h]){
+                for(i=h+1,j=1; j<c; j++,i++){
+                    if(dato.subject[i] == s[j]){
+                        f++;
+                    }
+                }
+                if(f+1 == c){
+                    int sizev = v.size();
+                    if(v.empty())
+                        v.insert(v.end(),dato);
+                    else if(v[sizev-1].id != dato.id)
+                        v.insert(v.end(),dato);
+                }
+            }
+        }
+    }
+
+    if (der != NULL) der->searchsubject(s,v);
+}
+
+
+/**
+ * Funcion que toma una palabra como parametro y la agrega al final del vector
+ * si la palabra esta en el contenido del email
+ * @param s palabra a buscar
+ * @param v vector en el cual se agregan los emails
+ */
+void NodoArbol::searchcontent(string &s, vector<email> &v) {
+    if (izq != NULL) izq->searchcontent(s,v);
+
+    else{
+        int i,j,h,f;
+        int l = dato.content.length();
+        int c = s.length();
+
+        for(h=0; h<l; h++){
+            f=0;
+            if(s[0] == dato.content[h]){
+                for(i=h+1,j=1; j<c; j++,i++){
+                    if(dato.content[i] == s[j]){
+                        f++;
+                    }
+                }
+                if(f+1 == c){
+                    int sizev = v.size();
+                    if(v.empty())
+                        v.insert(v.end(),dato);
+                    else if(v[sizev-1].id != dato.id)
+                        v.insert(v.end(),dato);
+                }
+            }
+        }
+    }
+
+    if (der != NULL) der->searchcontent(s,v);
+}
+
+/**
+ * Funcion que remueve un email y devuelve un puntero a un nodo, que corresponde al nodo que mantiene
+ * el balance del arbol y reemplaza el nodo a remover
+ * @param d
+ * @return NodoArbol*
+ */
 NodoArbol *NodoArbol::remover(email d) {
     NodoArbol *aux;
     if (d.id == dato.id) {
@@ -161,6 +233,12 @@ NodoArbol *NodoArbol::remover(email d) {
     return this;
 }
 
+/**
+ * Funcion que remueve un email, ingresando su id, y devuelve un puntero a un nodo, que corresponde al nodo que mantiene
+ * el balance del arbol y reemplaza el nodo a remover
+ * @param d
+ * @return
+ */
 NodoArbol *NodoArbol::remover(unsigned long d) {
     NodoArbol *aux;
     if (d == dato.id) {
@@ -191,34 +269,12 @@ NodoArbol *NodoArbol::remover(unsigned long d) {
     return this;
 }
 
+/**
+ * devuelve el email correspondiente al nodo
+ * @return email
+ */
 email NodoArbol::getDato() const {
     return dato;
-}
-
-
-void NodoArbol::setDato(email dato) {
-    NodoArbol::dato = dato;
-}
-
-
-void NodoArbol::preorder() {
-    dato.mostrar();
-    if (izq != NULL) izq->preorder();
-    if (der != NULL) der->preorder();
-}
-
-
-void NodoArbol::inorder() {
-    if (izq != NULL) izq->inorder();
-    dato.mostrar();
-    if (der != NULL) der->inorder();
-}
-
-
-void NodoArbol::postorder() {
-    if (izq != NULL) izq->postorder();
-    if (der != NULL) der->postorder();
-    dato.mostrar();
 }
 
 
