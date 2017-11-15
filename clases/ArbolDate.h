@@ -19,7 +19,9 @@ public:
 
     void preorder();
 
-    void inorder();
+    void inorder(vector<email> &v);
+
+    void inorderfiltrado(vector<email> &v, string &desde, string &hasta);
 
     void postorder();
 
@@ -134,9 +136,15 @@ void ArbolDate::preorder() {
 /**
  * Recorre un árbol en orden
  */
-void ArbolDate::inorder() {
+void ArbolDate::inorder(vector<email> &v) {
     if (raiz != NULL) {
-        raiz->inorder();
+        raiz->inorder(v);
+    }
+}
+
+void ArbolDate::inorderfiltrado(vector<email> &v, string &desde, string &hasta) {
+    if (raiz != NULL) {
+        raiz->inorderfiltrado(v,desde,hasta);
     }
 }
 

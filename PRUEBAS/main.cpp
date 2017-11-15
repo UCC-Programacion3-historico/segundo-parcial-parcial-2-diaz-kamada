@@ -8,7 +8,7 @@ int main(){
     email email2(2,"juancho","juan","2017-09-15","prueba","probando");
     email email5(9,"martin","juan","2017-11-01","metal","metallica es la luz");
     email email4(7,"agus","juan","2017-11-14","viste lo que paso?","q impresionante! no?");
-    email email6(8,"agus","juan","2017-11-15","oh no!","q embole no?");
+    email email6(8,"agus","juan","2017-11-14","oh no!","q embole no?");
 
     cout << "arbol date:" << endl;
     M.addMail(email3);
@@ -18,7 +18,7 @@ int main(){
     M.addMail(email4);
     M.addMail(email6);
     M.printdate();
-
+/*
     cout << endl << "luego de remover el nodo 9:" << endl;
 
     M.deleteMail(9);
@@ -36,6 +36,26 @@ int main(){
     cout << endl << "si agrego 7 de nuevo:" << endl;
     M.addMail(email4);
     M.printdate();
+*/
+    vector<email> v;
+    v = M.getSortedByDate();
+    cout << endl << "todos los mails" << endl;
+    for(int i=0; i<v.size(); i++){
+        cout << "///////////////////////////////////////////////////////////////////////" << endl << i << " :" << endl;
+        v[i].mostrar();
+    }
+
+    cout << endl << endl << endl << endl << endl<< "mails filtrados" << endl;
+
+    string desde="2017-09-12";
+    string hasta="2017-11-13";
+
+    v=M.getSortedByDate(desde,hasta);
+
+    for(int i=0; i<v.size(); i++){
+        cout << "///////////////////////////////////////////////////////////////////////" << endl << i << " :" << endl;
+        v[i].mostrar();
+    }
 
     return 0;
 }

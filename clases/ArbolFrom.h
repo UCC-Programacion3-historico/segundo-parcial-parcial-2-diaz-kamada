@@ -17,7 +17,7 @@ public:
 
     void preorder();
 
-    void inorder();
+    void inorder(vector<email> &v);
 
     void postorder();
 
@@ -119,9 +119,9 @@ void ArbolFrom::preorder() {
 /**
  * Recorre un árbol en orden
  */
-void ArbolFrom::inorder() {
+void ArbolFrom::inorder(vector<email> &v) {
     if (raiz != NULL) {
-        raiz->inorder();
+        raiz->inorder(v);
     }
 }
 

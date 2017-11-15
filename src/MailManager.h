@@ -61,11 +61,6 @@ void MailManager::addMail(email m) {
     Aid.put(m);
     Adate.put(m);
     Afrom.put(m);
-
-    //cout << "arbol de ids" << endl;
-    //Aid.print();
-    //cout << endl << "arbol de date" << endl;
-    //Adate.print();
 }
 
 
@@ -75,7 +70,6 @@ void MailManager::addMail(email m) {
  */
 void MailManager::deleteMail(unsigned long id) {
     email aux = Aid.search(id);
-    //cout << "id encontrado: " << aux.id << endl << "contenido encontrado: " << aux.content << endl;
     Aid.remove(id);
     Adate.remove(aux);
     Afrom.remove(aux);
@@ -88,6 +82,7 @@ void MailManager::deleteMail(unsigned long id) {
  */
 vector<email> MailManager::getSortedByDate() {
     vector<email> ret;
+    Adate.inorder(ret);
     return ret;
 }
 
@@ -99,8 +94,9 @@ vector<email> MailManager::getSortedByDate() {
  * @param hasta Fecha hasta donde buscar
  * @return lista de mails ordenados
  */
-vector<email> MailManager::getSortedByDate(string desde, string hasta) {
+vector<email> MailManager::getSortedByDate(string desde, string hasta) { //REVISAR REVISAR REVISAR REVISAR REVISAR
     vector<email> ret;
+    Adate.inorderfiltrado(ret,desde,hasta);
     return ret;
 }
 
@@ -109,8 +105,9 @@ vector<email> MailManager::getSortedByDate(string desde, string hasta) {
  * Devuelve una lista de mails ordenados por Remitente
  * @return lista de mails ordenados
  */
-vector<email> MailManager::getSortedByFrom() {
+vector<email> MailManager::getSortedByFrom() { //REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR
     vector<email> ret;
+    Afrom.inorder(ret);
     return ret;
 }
 

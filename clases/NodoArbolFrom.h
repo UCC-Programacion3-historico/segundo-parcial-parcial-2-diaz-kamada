@@ -29,7 +29,7 @@ public:
 
     void preorder();
 
-    void inorder();
+    void inorder(vector<email> &v);
 
     void postorder();
 
@@ -210,10 +210,10 @@ void NodoArbolFrom::preorder() {
     if (der != NULL) der->preorder();
 }
 
-void NodoArbolFrom::inorder() {
-    if (izq != NULL) izq->inorder();
-    cout << dato.from << endl;
-    if (der != NULL) der->inorder();
+void NodoArbolFrom::inorder(vector<email> &v) {
+    if (izq != NULL) izq->inorder(v);
+    v.insert(v.end(),dato);
+    if (der != NULL) der->inorder(v);
 }
 
 void NodoArbolFrom::postorder() {

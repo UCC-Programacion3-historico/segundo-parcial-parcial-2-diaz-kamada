@@ -31,7 +31,9 @@ public:
 
     void preorder();
 
-    void inorder();
+    void inorder(vector<email> &v);
+
+    void inorderfiltrado(vector<email> &v, string &desde, string &hasta);
 
     void postorder();
 
@@ -426,11 +428,55 @@ void NodoArbolDate::preorder() {
     if (der != NULL) der->preorder();
 }
 
-void NodoArbolDate::inorder() {
-    if (izq != NULL) izq->inorder();
-    dato.mostrar();
-    cout << endl;
-    if (der != NULL) der->inorder();
+void NodoArbolDate::inorder(vector<email> &v) {
+    if (izq != NULL) izq->inorder(v);
+    v.insert(v.end(),dato);
+    if (der != NULL) der->inorder(v);
+}
+
+void NodoArbolDate::inorderfiltrado(vector<email> &v, string &desde, string &hasta) {   //REVISAR REVISAR REVISAR
+    if (izq != NULL) izq->inorderfiltrado(v,desde,hasta);
+
+    if(desde == dato.date || hasta == dato.date)
+        v.insert(v.end(),dato);
+
+    else{
+        int i;
+        string aux1="", aux2="", aux3="";
+
+        for (i = 0; i < 4; i++) {                    //aux1, aux2 y aux3 son iguales a los años
+            aux1 += desde[i];
+            aux2 += dato.date[i];
+            aux3 += hasta[i];
+        }
+
+        if(aux1 <= aux2 && aux3 >= aux2){             //supongamos que los años no generan problema, pasamos a los meses
+            aux1="";
+            aux2="";
+            aux3="";
+            for (i = 5; i < 7; i++) {                 //aux1, aux2 y aux3 son iguales a los meses
+                aux1 += desde[i];
+                aux2 += dato.date[i];
+                aux3 += hasta[i];
+            }
+
+            if(aux1 <= aux2 && aux3 >= aux2) {        //supongamos que los meses no generan problema, pasamos a los dias
+                aux1 = "";
+                aux2 = "";
+                aux3 = "";
+                for (i = 8; i < 10; i++) {            //aux1, aux2 y aux3 son iguales a los dias
+                    aux1 += desde[i];
+                    aux2 += dato.date[i];
+                    aux3 += hasta[i];
+                }
+
+                if(aux1 <= aux2 && aux3 >= aux2)
+                    v.insert(v.end(),dato);           //si los dias tampoco generan problema se inserta en el vector
+            }
+        }
+    }
+
+    if (der != NULL) der->inorderfiltrado(v,desde,hasta);
 }
 
 void NodoArbolDate::postorder() {
