@@ -18,7 +18,7 @@ int main(){
              << " 2 - Borrar Mail\n"
              << " 3 - Buscar Mail\n"
              << " 4 - Ordenar Mails\n"
-             << " 5 - Salir\n"
+             << " Otro - Salir\n"
              << " Ingrese su opcion y presione enter: ";
         FS;
         cin >> variable;
@@ -56,7 +56,7 @@ int main(){
             case 3:
                 cout << "1 - Buscar por remitente" <<endl;
                 cout << "2 - Buscar por palabra" <<endl;
-                cout << "otro - volver" << endl;
+                cout << "Otro - volver" << endl;
                 FS;
                 cin >> op;
                 FS;
@@ -81,7 +81,7 @@ int main(){
                 cout << "1 - Ordenar por fecha" <<endl;
                 cout << "2 - Ordenar por fecha (filrado)" <<endl;
                 cout << "3 - Ordenar por remitente" <<endl;
-                cout << "otro - volver" << endl;
+                cout << "Otro - volver" << endl;
                 FS;
                 cin >> op;
                 FS;
@@ -106,12 +106,12 @@ int main(){
                 }
                 break;
 
-            case 5:
+            default:
                 cout<<"Salir"<<endl;
                 break;
 
         }
-    }while(variable!=5);
+    }while(variable<5 && variable>0);
 
     return 0;
 }
