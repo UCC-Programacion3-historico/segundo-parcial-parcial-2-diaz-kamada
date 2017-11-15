@@ -105,7 +105,7 @@ vector<email> MailManager::getSortedByDate(string desde, string hasta) { //REVIS
  * Devuelve una lista de mails ordenados por Remitente
  * @return lista de mails ordenados
  */
-vector<email> MailManager::getSortedByFrom() { //REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR REVISAR
+vector<email> MailManager::getSortedByFrom() {
     vector<email> ret;
     Afrom.inorder(ret);
     return ret;
@@ -119,6 +119,7 @@ vector<email> MailManager::getSortedByFrom() { //REVISAR REVISAR REVISAR REVISAR
  */
 vector<email> MailManager::getByFrom(string from) {
     vector<email> ret;
+    Afrom.search(from,ret);
     return ret;
 }
 

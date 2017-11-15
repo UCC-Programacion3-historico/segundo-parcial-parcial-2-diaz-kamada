@@ -23,6 +23,8 @@ public:
 
     email search(email d);
 
+    void search(string &s, vector<email> &v);
+
     NodoArbolFrom *remover(unsigned long d);
 
     NodoArbolFrom *remover(email d);
@@ -119,6 +121,29 @@ email NodoArbolFrom::search(email d) { //CAMBIAR A BUSQUEDA POR ID PARA AGILIZAR
             throw 3;
         else
             return der->search(d);
+    }
+}
+
+void NodoArbolFrom::search(string &s, vector<email> &v) {
+    if(s == dato.from){
+        v.insert(v.end(),dato);             // si el remitente es el buscado, agregar al vector
+        if(der == NULL)
+            return;
+        else
+            der->search(s,v);           // como mandamos los iguales a la derecha, buscamos por derecha hasta q der=NULL
+    }
+    else{
+        if(s < dato.from)
+            if(izq == NULL)
+                return;
+            else
+                izq->search(s,v);
+        else{
+            if(der == NULL)
+                return;
+            else
+                der->search(s,v);
+        }
     }
 }
 

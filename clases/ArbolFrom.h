@@ -13,6 +13,8 @@ public:
 
     email search(email dato);
 
+    void search(string &s, vector<email> &v);
+
     void remove(email dato);
 
     void preorder();
@@ -62,6 +64,14 @@ email ArbolFrom::search(email dato) {
         throw 3;
     } else {
         return raiz->search(dato);
+    }
+}
+
+void ArbolFrom::search(string &s, vector<email> &v) {
+    if (raiz == NULL) {
+        return;
+    } else {
+        return raiz->search(s,v);
     }
 }
 

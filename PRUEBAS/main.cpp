@@ -17,7 +17,7 @@ int main(){
     M.addMail(email5);
     M.addMail(email4);
     M.addMail(email6);
-    M.printdate();
+    M.printfrom();
 /*
     cout << endl << "luego de remover el nodo 9:" << endl;
 
@@ -37,6 +37,8 @@ int main(){
     M.addMail(email4);
     M.printdate();
 */
+
+    /*
     vector<email> v;
     v = M.getSortedByDate();
     cout << endl << "todos los mails" << endl;
@@ -55,6 +57,25 @@ int main(){
     for(int i=0; i<v.size(); i++){
         cout << "///////////////////////////////////////////////////////////////////////" << endl << i << " :" << endl;
         v[i].mostrar();
+    }
+*/
+
+    vector<email> v;
+    v = M.getSortedByFrom();
+    cout << endl << "todos los mails" << endl;
+    for(int i=0; i<v.size(); i++){
+        cout << "///////////////////////////////////////////////////////////////////////" << endl;
+        v[i].mostrar();
+    }
+
+    cout << endl << endl << endl << endl << endl;
+
+    vector<email> h;
+    h = M.getByFrom("agus");
+    cout << endl << "todos los mails de agus" << endl;
+    for(int i=0; i<h.size(); i++){
+        cout << "///////////////////////////////////////////////////////////////////////" << endl;
+        h[i].mostrar();
     }
 
     return 0;
