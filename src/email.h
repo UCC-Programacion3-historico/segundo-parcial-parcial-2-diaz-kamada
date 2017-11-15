@@ -19,9 +19,25 @@ public:
     string date; //a-m-d
     string subject;
     string content;
+
+    void setId(unsigned long id);
+
+    void setFrom(const string &from);
+
+    void setTo(const string &to);
+
+    void setDate(const string &date);
+
+    void setSubject(const string &subject);
+
+    void setContent(const string &content);
+
     void mostrar();
 };
 
+/**
+ * COnstructor por defecto
+ */
 email::email() {
     id=0;
     from="";
@@ -31,6 +47,15 @@ email::email() {
     content="";
 }
 
+/**
+ * Constructor con parametros
+ * @param x
+ * @param a
+ * @param b
+ * @param c
+ * @param d
+ * @param e
+ */
 email::email(unsigned long x, string a, string b, string c, string d, string e) {
     id=x;
     from=a;
@@ -40,6 +65,9 @@ email::email(unsigned long x, string a, string b, string c, string d, string e) 
     content=e;
 }
 
+/**
+ * muestra los datos del email
+ */
 void email::mostrar() {
     cout << "id: " << id << endl;
     cout << "from: " << from << endl;
@@ -49,6 +77,10 @@ void email::mostrar() {
     cout << "content: " << content << endl;
 }
 
+/**
+ * constructor por copia
+ * @param em
+ */
 email::email(const email &em) {
     id=em.id;
     from=em.from;
@@ -56,6 +88,30 @@ email::email(const email &em) {
     date=em.date;
     subject=em.subject;
     content=em.content;
+}
+
+void email::setId(unsigned long id) {
+    email::id = id;
+}
+
+void email::setFrom(const string &from) {
+    email::from = from;
+}
+
+void email::setTo(const string &to) {
+    email::to = to;
+}
+
+void email::setDate(const string &date) {
+    email::date = date;
+}
+
+void email::setSubject(const string &subject) {
+    email::subject = subject;
+}
+
+void email::setContent(const string &content) {
+    email::content = content;
 }
 
 #endif // EMAIL_H
