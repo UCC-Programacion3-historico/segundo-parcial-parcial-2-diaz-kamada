@@ -38,8 +38,8 @@ int main(){
     M.printdate();
 */
 
-    /*
-    vector<email> v;
+
+    vector<email> v, h;
     v = M.getSortedByDate();
     cout << endl << "todos los mails" << endl;
     for(int i=0; i<v.size(); i++){
@@ -52,31 +52,31 @@ int main(){
     string desde="2017-09-12";
     string hasta="2017-11-13";
 
-    v=M.getSortedByDate(desde,hasta);
+    h=M.getSortedByDate(desde,hasta);
 
-    for(int i=0; i<v.size(); i++){
+    for(int i=0; i<h.size(); i++){
         cout << "///////////////////////////////////////////////////////////////////////" << endl << i << " :" << endl;
-        v[i].mostrar();
+        h[i].mostrar();
     }
-*/
 
-    vector<email> v;
-    v = M.getSortedByFrom();
+/*
+    vector<email> g;
+    g = M.getSortedByFrom();
     cout << endl << "todos los mails" << endl;
-    for(int i=0; i<v.size(); i++){
+    for(int i=0; i<g.size(); i++){
         cout << "///////////////////////////////////////////////////////////////////////" << endl;
-        v[i].mostrar();
+        g[i].mostrar();
     }
 
     cout << endl << endl << endl << endl << endl;
 
-    vector<email> h;
-    h = M.getByFrom("agus");
+    vector<email> j;
+    j = M.getByFrom("agus");
     cout << endl << "todos los mails de agus" << endl;
-    for(int i=0; i<h.size(); i++){
+    for(int i=0; i<j.size(); i++){
         cout << "///////////////////////////////////////////////////////////////////////" << endl;
-        h[i].mostrar();
+        j[i].mostrar();
     }
-
+*/
     return 0;
 }

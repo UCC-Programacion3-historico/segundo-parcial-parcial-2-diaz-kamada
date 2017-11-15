@@ -71,6 +71,7 @@ void MailManager::addMail(email m) {
 void MailManager::deleteMail(unsigned long id) {
     email aux = Aid.search(id);
     Aid.remove(id);
+
     Adate.remove(aux);
     Afrom.remove(aux);
 }
@@ -94,7 +95,7 @@ vector<email> MailManager::getSortedByDate() {
  * @param hasta Fecha hasta donde buscar
  * @return lista de mails ordenados
  */
-vector<email> MailManager::getSortedByDate(string desde, string hasta) { //REVISAR REVISAR REVISAR REVISAR REVISAR
+vector<email> MailManager::getSortedByDate(string desde, string hasta) {
     vector<email> ret;
     Adate.inorderfiltrado(ret,desde,hasta);
     return ret;

@@ -435,14 +435,13 @@ void NodoArbolDate::inorder(vector<email> &v) {
 }
 
 void NodoArbolDate::inorderfiltrado(vector<email> &v, string &desde, string &hasta) {   //REVISAR REVISAR REVISAR
-    if (izq != NULL) izq->inorderfiltrado(v,desde,hasta);
+    if (izq != NULL) izq->inorderfiltrado(v, desde, hasta);
 
-    if(desde == dato.date || hasta == dato.date)
-        v.insert(v.end(),dato);
-
-    else{
+    if (desde == dato.date || hasta == dato.date) {
+        v.insert(v.end(), dato);
+    } else {
         int i;
-        string aux1="", aux2="", aux3="";
+        string aux1 = "", aux2 = "", aux3 = "";
 
         for (i = 0; i < 4; i++) {                    //aux1, aux2 y aux3 son iguales a los años
             aux1 += desde[i];
@@ -450,33 +449,47 @@ void NodoArbolDate::inorderfiltrado(vector<email> &v, string &desde, string &has
             aux3 += hasta[i];
         }
 
-        if(aux1 <= aux2 && aux3 >= aux2){             //supongamos que los años no generan problema, pasamos a los meses
-            aux1="";
-            aux2="";
-            aux3="";
+        if (aux1 <= aux2 && aux2 <= aux3) {           //supongamos que los años no generan problema, pasamos a los meses
+            aux1 = "";
+            aux2 = "";
+            aux3 = "";
             for (i = 5; i < 7; i++) {                 //aux1, aux2 y aux3 son iguales a los meses
                 aux1 += desde[i];
                 aux2 += dato.date[i];
                 aux3 += hasta[i];
             }
 
-            if(aux1 <= aux2 && aux3 >= aux2) {        //supongamos que los meses no generan problema, pasamos a los dias
-                aux1 = "";
-                aux2 = "";
-                aux3 = "";
-                for (i = 8; i < 10; i++) {            //aux1, aux2 y aux3 son iguales a los dias
-                    aux1 += desde[i];
-                    aux2 += dato.date[i];
-                    aux3 += hasta[i];
-                }
+            if (aux1 <= aux2 && aux2 <= aux3) {  //supongamos que los meses no generan problema
+                if (aux1 == aux2) {              //si el mes del dato es igual al mes del limite inferior
+                    aux1 = "";
+                    aux2 = "";
+                    aux3 = "";
+                    for (i = 8; i < 10; i++) {      //comparamos los dias
+                        aux1 += desde[i];
+                        aux2 += dato.date[i];
+                        aux3 += hasta[i];
+                    }
+                    if (aux1 <= aux2)               //si el dia del lim inferior es menor o igual al dato, agrego al vec
+                        v.insert(v.end(), dato);
 
-                if(aux1 <= aux2 && aux3 >= aux2)
-                    v.insert(v.end(),dato);           //si los dias tampoco generan problema se inserta en el vector
+                } else if (aux3 == aux2) {      //si el mes del dato es igual al mes del limite superior
+                    aux1 = "";
+                    aux2 = "";
+                    aux3 = "";
+                    for (i = 8; i < 10; i++) {      //comparamos los dias
+                        aux1 += desde[i];
+                        aux2 += dato.date[i];
+                        aux3 += hasta[i];
+                    }
+                    if (aux2 <= aux3)           //si el dia del lim superior es mayor o igual al dato, agrego al vec
+                        v.insert(v.end(), dato);
+
+                } else if(aux2!=aux1 && aux2!=aux3)
+                    v.insert(v.end(), dato);        //si el mes no es igual a ninguno de los meses limites agrego
             }
         }
     }
-
-    if (der != NULL) der->inorderfiltrado(v,desde,hasta);
+    if (der != NULL) der->inorderfiltrado(v, desde, hasta);
 }
 
 void NodoArbolDate::postorder() {
